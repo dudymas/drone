@@ -193,6 +193,7 @@ func PutRepo(c web.C, w http.ResponseWriter, r *http.Request) {
 	// unmarshal the repository from the payload
 	defer r.Body.Close()
 	in := struct {
+		CloneURL    *string `json:"clone_url"`
 		PostCommit  *bool   `json:"post_commits"`
 		PullRequest *bool   `json:"pull_requests"`
 		Privileged  *bool   `json:"privileged"`
@@ -218,6 +219,9 @@ func PutRepo(c web.C, w http.ResponseWriter, r *http.Request) {
 	}
 	if in.PullRequest != nil {
 		repo.PullRequest = *in.PullRequest
+	}
+	if in.CloneURL != nil {
+		repo.CloneURL = *in.CloneURL
 	}
 	if in.Privileged != nil && user.Admin {
 		repo.Privileged = *in.Privileged
