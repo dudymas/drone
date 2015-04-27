@@ -5,7 +5,7 @@
 FROM google/golang
 ENV DRONE_SERVER_PORT :80
 
-ADD . /gopath/src/github.com/drone/drone/
+RUN git clone https://github.com/dudymas/drone /gopath/src/github.com/drone/drone
 WORKDIR /gopath/src/github.com/drone/drone
 
 RUN apt-get update
